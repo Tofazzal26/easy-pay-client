@@ -144,7 +144,7 @@ const Header = () => {
                   <a>afranislam34@gmail.com</a>
                 </li>
                 <li>
-                  <a>Edit Profile</a>
+                  <a>My Account</a>
                 </li>
                 <li>
                   <button className="text-red-500">Logout</button>

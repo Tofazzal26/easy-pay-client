@@ -1,0 +1,143 @@
+import React, { useState } from "react";
+
+const UserProfile = () => {
+  const [edite, setEdite] = useState(false);
+  const [pin, setPin] = useState(false);
+
+  const handleEdit = () => {
+    if (pin) {
+      setPin(false);
+    }
+    setEdite(!edite);
+  };
+  const handlePin = () => {
+    if (edite) {
+      setEdite(false);
+    }
+    setPin(!pin);
+  };
+
+  return (
+    <div className="container mx-auto">
+      <div className="mt-5 lg:mt-10">
+        <h2 className="text-lg font-semibold text-gray-600 mb-4">
+          Number of Transactions: 10
+        </h2>
+        <div className="flex flex-col justify-center p-6 shadow-md rounded-xl">
+          <img
+            src="/profile.png"
+            alt=""
+            className="w-32 h-32 mx-auto rounded-full  aspect-square"
+          />
+          <div className="space-y-4 text-center divide-y">
+            <div className="my-2 space-y-1">
+              <h2 className="text-xl font-semibold sm:text-2xl">
+                Tofazzal Hossain
+              </h2>
+              <p className="px-5 text-xs sm:text-base text-gray-600">
+                +8801306700357
+              </p>
+              <p className="px-5 text-xs sm:text-base text-gray-600">
+                afranislamabir6789@gmail.com
+              </p>
+              <p className="px-5 text-xs sm:text-base text-gray-600">
+                34235534536344
+              </p>
+              <p className="px-5 text-xs sm:text-base text-gray-600">User</p>
+              <div className="space-x-2 mt-2">
+                <button
+                  onClick={handleEdit}
+                  className="bg-red-100 px-4 py-2 rounded-md cursor-pointer"
+                >
+                  Edit Profile
+                </button>
+                <button
+                  onClick={handlePin}
+                  className="bg-red-100 px-4 py-2 rounded-md cursor-pointer"
+                >
+                  Change PIN
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          className={`shadow-lg bg-white p-5 lg:p-10 rounded-lg mt-3 lg:mt-6 ${
+            edite ? "block" : "hidden"
+          }`}
+        >
+          <h2 className="text-lg font-semibold text-center">Edit Profile</h2>
+          <form>
+            <fieldset className="w-full space-y-1 dark:text-gray-800">
+              <label htmlFor="files" className="block text-sm font-medium">
+                Choose Photo
+              </label>
+              <div className="flex">
+                <input
+                  type="file"
+                  id="files"
+                  className="px-8 py-8 border-2 border-dashed rounded-md dark:border-gray-300 dark:text-gray-600 dark:bg-gray-50 font-semibold w-full mb-4"
+                />
+              </div>
+            </fieldset>
+            <div>
+              <label htmlFor="name">Name</label>
+              <br />
+              <input
+                type="text"
+                name="name"
+                placeholder="Name here"
+                className="outline-none border-[1px] border-gray-300 rounded-md w-full px-4 py-2 mb-4 mt-1"
+              />
+            </div>
+            <div>
+              <label htmlFor="name">Email</label>
+              <br />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email here"
+                className="outline-none border-[1px] border-gray-300 rounded-md w-full px-4 py-2 mt-1"
+              />
+            </div>
+            <button
+              className="bg-[#ef4323] w-full text-white py-2 font-semibold mt-4 cursor-pointer rounded-md
+            "
+            >
+              Change
+            </button>
+          </form>
+        </div>
+        <div
+          className={`shadow-lg bg-white p-5 lg:p-10 rounded-lg mt-3 lg:mt-6 ${
+            pin ? "block" : "hidden"
+          }`}
+        >
+          <h2 className="text-lg font-semibold text-center">Change Pin</h2>
+          <form>
+            <div>
+              <label htmlFor="name">New Pin</label>
+              <br />
+              <input
+                type="number"
+                name="pin"
+                placeholder="Name here"
+                className="outline-none border-[1px] border-gray-300 rounded-md w-full px-4 py-2 mb-4 mt-1"
+              />
+            </div>
+            <button
+              className="bg-[#ef4323] w-full text-white py-2 font-semibold mt-4 cursor-pointer rounded-md
+            "
+            >
+              Change
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserProfile;
