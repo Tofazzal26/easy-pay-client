@@ -2,6 +2,15 @@ import { useState } from "react";
 import { NavLink } from "react-router";
 
 const Header = () => {
+  const [showBalance, setShowBalance] = useState(true);
+
+  const handleBalance = () => {
+    setShowBalance(false);
+    setTimeout(() => {
+      setShowBalance(true);
+    }, 5000);
+  };
+
   return (
     <div>
       <div className="shadow-md">
@@ -107,14 +116,12 @@ const Header = () => {
           </div>
           <div className="navbar-center justify-center">
             <div>
-              <button className="font-semibold flex items-center gap-2 bg-[#ef4323] px-4 py-1 text-white rounded-full">
-                {" "}
-                <img
-                  src="/logo.png"
-                  alt="logo"
-                  className="w-[20px] h-[20px]"
-                />{" "}
-                00.00 Tk
+              <button
+                onClick={handleBalance}
+                className={`font-semibold flex items-center gap-2 bg-[#ef4323] px-4 py-1 text-white rounded-full cursor-pointer`}
+              >
+                <img src="/logo.png" alt="logo" className="w-[20px] h-[20px]" />{" "}
+                {showBalance ? "Tap for Balance" : "00.00 Tk"}
               </button>
             </div>
           </div>
