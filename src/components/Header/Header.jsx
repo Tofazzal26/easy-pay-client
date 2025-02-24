@@ -2,8 +2,6 @@ import { useState } from "react";
 import { NavLink } from "react-router";
 
 const Header = () => {
-  const activeNavbar = "/";
-  const [user, setUser] = useState(null);
   return (
     <div>
       <div className="shadow-md">
@@ -144,6 +142,9 @@ const Header = () => {
                 </li>
                 <li>
                   <a>afranislam34@gmail.com</a>
+                </li>
+                <li>
+                  <a>Edit Profile</a>
                 </li>
                 <li>
                   <button className="text-red-500">Logout</button>
