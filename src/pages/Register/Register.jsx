@@ -1,5 +1,10 @@
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
+import useAxiosPublic from "./../../hooks/useAxiosPublic/useAxiosPublic";
+import toast from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { Loader } from "lucide-react";
 
 const Register = () => {
   const {
@@ -9,8 +14,33 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const axiosPublic = useAxiosPublic();
+  const { user, setUser, loading, setLoading } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
+  const onSubmit = async (data) => {
+    const { name, email, number, pin, nid, userType } = data;
+    const userInfo = { email };
+    setLoading(true);
+    try {
+      if (email) {
+        await axiosPublic.post("/jwt", userInfo).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("token", res.data.token);
+            toast.success("Login Successful");
+            navigate(from);
+          }
+        });
+      } else {
+        localStorage.removeItem("token");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -112,8 +142,17 @@ const Register = () => {
                   </select>
                 </div>
 
-                <button className="bg-[#ef4323] text-white text-lg w-full py-[10px] mt-4 cursor-pointer">
-                  Register
+                <button
+                  disabled={loading}
+                  className={`bg-[#ef4323] text-white text-lg w-full py-[10px] mt-4 ${
+                    loading ? "cursor-not-allowed opacity-75" : "cursor-pointer"
+                  }`}
+                >
+                  {loading ? (
+                    <Loader className="animate-spin mx-auto" size={25} />
+                  ) : (
+                    "Register"
+                  )}
                 </button>
               </form>
               <div>

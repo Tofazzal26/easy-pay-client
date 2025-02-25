@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 
 const Header = () => {
   const [showBalance, setShowBalance] = useState(true);
+  const location = useLocation();
 
   const handleBalance = () => {
     setShowBalance(false);
@@ -12,7 +13,13 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div
+      className={
+        location.pathname === "/login" || location.pathname === "/register"
+          ? "hidden"
+          : ""
+      }
+    >
       <div className="shadow-md">
         <div className="navbar container mx-auto">
           <div className="navbar-start">

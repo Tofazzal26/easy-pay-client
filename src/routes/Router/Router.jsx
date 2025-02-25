@@ -5,6 +5,7 @@ import NotFound from "../../components/NotFound/NotFound";
 import UserProfile from "../../pages/UserProfile/UserProfile";
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
+import PrivateRoute from "../../pages/PrivateRoute/PrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -14,7 +15,11 @@ const Router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",
