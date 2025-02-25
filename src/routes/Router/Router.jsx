@@ -6,6 +6,8 @@ import UserProfile from "../../pages/UserProfile/UserProfile";
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
 import PrivateRoute from "../../pages/PrivateRoute/PrivateRoute";
+import Dashboard from "../../pages/Dashboard/Dashboard";
+import AdminPrivateRoute from "../../pages/AdminPrivateRoute/AdminPrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ const Router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <AdminPrivateRoute>
+            <Dashboard />
+          </AdminPrivateRoute>
+        ),
       },
     ],
   },

@@ -41,9 +41,20 @@ const Register = () => {
       pin,
       image: "",
       role: userType,
-      balance: "0",
+      balance: userType === "user" ? "40" : "0",
       isBlocked: false,
-      transaction: [],
+      notification: [
+        {
+          msg:
+            userType === "user"
+              ? "You have bonus of 40 taka"
+              : "Wait For Admin Approval",
+        },
+        {
+          msg: "Thank you for registering our app.",
+        },
+      ],
+      ant: userType === "agent" ? "no" : "none",
     };
     setLoading(true);
     try {

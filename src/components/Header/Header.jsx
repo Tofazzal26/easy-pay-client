@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { NavLink, useLocation } from "react-router";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { Bell } from "lucide-react";
 
 const Header = () => {
   const [showBalance, setShowBalance] = useState(true);
@@ -16,6 +17,7 @@ const Header = () => {
     number,
     role,
     transaction,
+    notification,
   } = allUserData || {};
 
   const handleBalance = () => {
@@ -159,6 +161,32 @@ const Header = () => {
               <div
                 tabIndex={0}
                 role="button"
+                className="cursor-pointer relative"
+              >
+                <div className="w-10 rounded-full ">
+                  <Bell />
+                </div>
+                <div className="w-[20px] h-[20px] bg-[#ef4323] left-[8px] top-[-8px] rounded-full text-white absolute font-semibold flex justify-center items-center">
+                  {notification?.length}
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-[200px] lg:w-[300px] p-2 shadow"
+              >
+                {notification?.map((item) => (
+                  <li key={item?.msg}>
+                    <a className="text-sm lg:text-base border-t-[1px] border-gray-200">
+                      {item?.msg}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
@@ -180,7 +208,13 @@ const Header = () => {
                   <a>{email}</a>
                 </li>
                 <li>
-                  <NavLink to="/profile"> My Account</NavLink>
+                  {role === "user" ? (
+                    <NavLink to="/profile"> My Account</NavLink>
+                  ) : role === "admin" ? (
+                    <NavLink to="/dashboard">Dashboard</NavLink>
+                  ) : (
+                    <NavLink to="/profile"> My Account</NavLink>
+                  )}
                 </li>
                 <li>
                   <button onClick={handleLogOut} className="text-red-500">
