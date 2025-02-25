@@ -22,15 +22,42 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     const { name, email, number, pin, nid, userType } = data;
+
+    if (nid.length !== 10) {
+      return toast.error("NID number must be 10 digits");
+    }
+    if (pin.length < 5) {
+      return toast.error("PIN number must be 5 digits");
+    }
+    if (number.length < 10) {
+      return toast.error(" Number must be 10 digits");
+    }
     const userInfo = { email };
+    const userAllData = {
+      name,
+      email,
+      number,
+      nid,
+      pin,
+      role: userType,
+      balance: "0",
+      isBlocked: false,
+      transaction: [],
+    };
+    console.log(userAllData);
     setLoading(true);
     try {
       if (email) {
-        await axiosPublic.post("/jwt", userInfo).then((res) => {
+        await axiosPublic.post("/jwt", userInfo).then(async (res) => {
           if (res.data.token) {
-            localStorage.setItem("token", res.data.token);
-            toast.success("Login Successful");
-            navigate(from);
+            const resp = await axiosPublic.post("/user", userAllData);
+            if (resp?.data?.success) {
+              return toast.error(resp?.data?.message);
+            } else {
+              localStorage.setItem("token", res.data.token);
+              toast.success("Login Successful");
+              navigate(from);
+            }
           }
         });
       } else {
