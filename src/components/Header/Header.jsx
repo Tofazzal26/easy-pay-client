@@ -1,15 +1,35 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavLink, useLocation } from "react-router";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Header = () => {
   const [showBalance, setShowBalance] = useState(true);
   const location = useLocation();
+  const { allUserData } = useContext(AuthContext);
+  const {
+    balance,
+    email,
+    image,
+    isBlocked,
+    name,
+    nid,
+    number,
+    role,
+    transaction,
+  } = allUserData || {};
 
   const handleBalance = () => {
     setShowBalance(false);
     setTimeout(() => {
       setShowBalance(true);
     }, 5000);
+  };
+
+  const handleLogOut = () => {
+    localStorage.clear();
+    setTimeout(() => {
+      window.location.href = "/login";
+    }, 500);
   };
 
   return (
@@ -128,7 +148,9 @@ const Header = () => {
                 className={`font-semibold flex items-center gap-2 bg-[#ef4323] px-4 py-1 text-white rounded-full cursor-pointer`}
               >
                 <img src="/logo.png" alt="logo" className="w-[20px] h-[20px]" />{" "}
-                {showBalance ? "Tap for Balance" : "00.00 Tk"}
+                {showBalance
+                  ? "Tap for Balance"
+                  : `${parseFloat(balance).toFixed(2)} Tk`}
               </button>
             </div>
           </div>
@@ -152,16 +174,18 @@ const Header = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
               >
                 <li>
-                  <a>Afran Abir</a>
+                  <a>{name}</a>
                 </li>
                 <li>
-                  <a>afranislam34@gmail.com</a>
+                  <a>{email}</a>
                 </li>
                 <li>
-                  <a>My Account</a>
+                  <NavLink to="/profile"> My Account</NavLink>
                 </li>
                 <li>
-                  <button className="text-red-500">Logout</button>
+                  <button onClick={handleLogOut} className="text-red-500">
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>

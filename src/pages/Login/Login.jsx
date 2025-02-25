@@ -39,6 +39,9 @@ const Login = () => {
               return toast.error(resp?.data?.message);
             } else {
               localStorage.setItem("token", res.data.token);
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
               toast.success("Login Successful");
               navigate(from);
             }
@@ -56,7 +59,7 @@ const Login = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="flex justify-center items-center mt-[10px] md:mt-[30px]">
+      <div className="flex justify-center items-center mt-[100px] md:mt-[250px]">
         <div className="border-2 border-gray-200 rounded-md">
           <div className="md:px-[60px] px-[20px] pb-[10px] md:pb-6">
             <h1 className="text-center text-lg md:text-xl my-4 md:my-6 uppercase">

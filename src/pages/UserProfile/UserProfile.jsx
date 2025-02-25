@@ -1,8 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const UserProfile = () => {
   const [edite, setEdite] = useState(false);
   const [pin, setPin] = useState(false);
+  const { allUserData } = useContext(AuthContext);
+
+  const {
+    balance,
+    email,
+    image,
+    isBlocked,
+    name,
+    nid,
+    number,
+    role,
+    transaction,
+  } = allUserData || {};
 
   const handleEdit = () => {
     if (pin) {
@@ -25,25 +39,19 @@ const UserProfile = () => {
         </h2>
         <div className="flex flex-col justify-center p-6 shadow-md rounded-xl">
           <img
-            src="/profile.png"
+            src={image ? { image } : "/profile.png"}
             alt=""
             className="w-32 h-32 mx-auto rounded-full  aspect-square"
           />
           <div className="space-y-4 text-center divide-y">
             <div className="my-2 space-y-1">
-              <h2 className="text-xl font-semibold sm:text-2xl">
-                Tofazzal Hossain
-              </h2>
+              <h2 className="text-xl font-semibold sm:text-2xl">{name}</h2>
               <p className="px-5 text-xs sm:text-base text-gray-600">
-                +8801306700357
+                +88{number}
               </p>
-              <p className="px-5 text-xs sm:text-base text-gray-600">
-                afranislamabir6789@gmail.com
-              </p>
-              <p className="px-5 text-xs sm:text-base text-gray-600">
-                34235534536344
-              </p>
-              <p className="px-5 text-xs sm:text-base text-gray-600">User</p>
+              <p className="px-5 text-xs sm:text-base text-gray-600">{email}</p>
+              <p className="px-5 text-xs sm:text-base text-gray-600">{nid}</p>
+              <p className="px-5 text-xs sm:text-base text-gray-600">{role}</p>
               <div className="space-x-2 mt-2">
                 <button
                   onClick={handleEdit}

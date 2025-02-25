@@ -13,13 +13,14 @@ const AuthProvider = ({ children }) => {
     setUser,
     loading,
     setLoading,
+    allUserData,
+    setAllUserData,
   };
 
   const verifyToken = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      console.log("No token found");
       return;
     }
 
@@ -48,10 +49,12 @@ const AuthProvider = ({ children }) => {
   }, []);
   useEffect(() => {
     const findUserData = async () => {
-      // const resp = await axiosPublic.get(`/userData/${}`)
+      if (!user?.email) return;
+      const resp = await axiosPublic.get(`/userData/${user?.email}`);
+      setAllUserData(resp?.data);
     };
-  }, []);
-  console.log(user, "user");
+    findUserData();
+  }, [user]);
 
   return (
     <AuthContext.Provider value={allInfo}>{children}</AuthContext.Provider>

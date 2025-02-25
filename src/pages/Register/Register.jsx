@@ -39,6 +39,7 @@ const Register = () => {
       number,
       nid,
       pin,
+      image: "",
       role: userType,
       balance: "0",
       isBlocked: false,
@@ -54,6 +55,9 @@ const Register = () => {
               return toast.error(resp?.data?.message);
             } else {
               localStorage.setItem("token", res.data.token);
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
               toast.success("Login Successful");
               navigate(from);
             }
