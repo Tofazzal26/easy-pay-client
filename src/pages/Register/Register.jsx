@@ -44,7 +44,6 @@ const Register = () => {
       isBlocked: false,
       transaction: [],
     };
-    console.log(userAllData);
     setLoading(true);
     try {
       if (email) {

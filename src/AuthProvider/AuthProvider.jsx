@@ -5,9 +5,15 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [allUserData, setAllUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const axiosPublic = useAxiosPublic();
-  const allInfo = { user, setUser, loading, setLoading };
+  const allInfo = {
+    user,
+    setUser,
+    loading,
+    setLoading,
+  };
 
   const verifyToken = async () => {
     const token = localStorage.getItem("token");
@@ -40,7 +46,12 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     verifyToken();
   }, []);
-  console.log(user);
+  useEffect(() => {
+    const findUserData = async () => {
+      // const resp = await axiosPublic.get(`/userData/${}`)
+    };
+  }, []);
+  console.log(user, "user");
 
   return (
     <AuthContext.Provider value={allInfo}>{children}</AuthContext.Provider>
