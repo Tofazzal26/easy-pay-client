@@ -11,6 +11,8 @@ import AdminPrivateRoute from "../../pages/AdminPrivateRoute/AdminPrivateRoute";
 import SendMoney from "../../pages/SendMoney/SendMoney";
 import CashOut from "../../pages/CashOut/CashOut";
 import CashIn from "../../pages/CashIn/CashIn";
+import Transaction from "../../pages/Transaction/Transaction";
+import AgentPrivateRoute from "../../pages/AgentPrivateRoute/AgentPrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -61,8 +63,16 @@ const Router = createBrowserRouter([
       {
         path: "/cashIn",
         element: (
-          <PrivateRoute>
+          <AgentPrivateRoute>
             <CashIn />
+          </AgentPrivateRoute>
+        ),
+      },
+      {
+        path: "/transaction",
+        element: (
+          <PrivateRoute>
+            <Transaction />
           </PrivateRoute>
         ),
       },

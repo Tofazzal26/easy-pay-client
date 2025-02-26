@@ -174,8 +174,8 @@ const Header = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-[200px] lg:w-[300px] p-2 shadow"
               >
-                {notification?.map((item) => (
-                  <li key={item?.msg}>
+                {notification?.map((item, ind) => (
+                  <li key={ind}>
                     <a className="text-sm lg:text-base border-t-[1px] border-gray-200">
                       {item?.msg}
                     </a>
