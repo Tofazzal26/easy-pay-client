@@ -34,10 +34,10 @@ const AgentContent = () => {
             </td>
 
             <td className="flex items-center gap-2 lg:gap-4">
-              <button class="bg-red-400 cursor-pointer rounded-md px-[8px] font-semibold py-[6px] text-white">
+              <button className="bg-red-400 cursor-pointer rounded-md px-[8px] font-semibold py-[6px] text-white">
                 Block
               </button>
-              <button class="bg-blue-400 cursor-pointer rounded-md px-[8px] font-semibold py-[6px] text-white">
+              <button className="bg-blue-400 cursor-pointer rounded-md px-[8px] font-semibold py-[6px] text-white">
                 Accept
               </button>
             </td>

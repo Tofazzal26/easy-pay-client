@@ -75,7 +75,7 @@ const Transaction = () => {
                 </td>
                 <td>
                   <h1 className="font-semibold text-[14px] text-gray-600">
-                    +880324242432
+                    {new Date(item.timestamp).toISOString().split("T")[0]}
                   </h1>
                 </td>
                 <td>
