@@ -61,13 +61,12 @@ const SendMoney = () => {
     setLoading(true);
     try {
       const resp = await axiosPublic.post("/sendMoney", sendMoneyTransaction);
-      headerRefetch();
       if (!resp?.data?.success) {
         return toast.error(resp?.data?.message);
       }
+      headerRefetch();
       toast.success(resp?.data?.message);
       navigate(from);
-      console.log(resp);
     } catch (error) {
       console.log(error, "front-end error");
     } finally {

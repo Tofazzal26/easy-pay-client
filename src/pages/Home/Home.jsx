@@ -1,7 +1,23 @@
 import { Send, Wallet, Download, List, PlusCircle } from "lucide-react";
+import { useContext } from "react";
 import { NavLink } from "react-router";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Home = () => {
+  const { headerUserData } = useContext(AuthContext);
+  const {
+    balance,
+    email,
+    image,
+    isBlocked,
+    name,
+    nid,
+    number,
+    role,
+    transaction,
+    notification,
+  } = headerUserData || {};
+
   return (
     <div className="container mx-auto">
       <div>
@@ -17,7 +33,10 @@ const Home = () => {
               </div>
             </div>
           </NavLink>
-          <NavLink to="/cashIn">
+          <NavLink
+            to="/cashIn"
+            className={role === "agent" ? "block" : "hidden"}
+          >
             <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
               <div className="flex justify-center items-center flex-col py-5 lg:py-10">
                 <Wallet size={40} />
@@ -33,13 +52,17 @@ const Home = () => {
               </div>
             </div>
           </NavLink>
-
-          <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
-            <div className="flex justify-center items-center flex-col py-5 lg:py-10">
-              <PlusCircle size={40} />
-              <h2 className="text-lg lg:text-2xl mt-2">Add Money</h2>
+          <NavLink
+            to="/addMoney"
+            className={role === "agent" ? "block" : "hidden"}
+          >
+            <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
+              <div className="flex justify-center items-center flex-col py-5 lg:py-10">
+                <PlusCircle size={40} />
+                <h2 className="text-lg lg:text-2xl mt-2">Add Money</h2>
+              </div>
             </div>
-          </div>
+          </NavLink>
         </div>
         <div className="mt-[50px] lg:mt-[150px]">
           <h2 className="text-lg font-semibold text-gray-600">Others</h2>
