@@ -6,7 +6,7 @@ import { Bell } from "lucide-react";
 const Header = () => {
   const [showBalance, setShowBalance] = useState(true);
   const location = useLocation();
-  const { allUserData } = useContext(AuthContext);
+  const { allUserData, headerUserData } = useContext(AuthContext);
   const {
     balance,
     email,
@@ -18,7 +18,7 @@ const Header = () => {
     role,
     transaction,
     notification,
-  } = allUserData || {};
+  } = headerUserData || {};
 
   const handleBalance = () => {
     setShowBalance(false);

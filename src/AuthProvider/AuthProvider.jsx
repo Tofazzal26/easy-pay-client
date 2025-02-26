@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import useAxiosPublic from "../hooks/useAxiosPublic/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 export const AuthContext = createContext();
 
@@ -8,6 +9,19 @@ const AuthProvider = ({ children }) => {
   const [allUserData, setAllUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const axiosPublic = useAxiosPublic();
+
+  const {
+    refetch: headerRefetch,
+    isLoading,
+    data: headerUserData = {},
+  } = useQuery({
+    queryKey: ["headerUserData", user],
+    queryFn: async () => {
+      const resp = await axiosPublic.get(`/userData/${user?.email}`);
+      return resp?.data;
+    },
+  });
+
   const allInfo = {
     user,
     setUser,
@@ -15,6 +29,8 @@ const AuthProvider = ({ children }) => {
     setLoading,
     allUserData,
     setAllUserData,
+    headerUserData,
+    headerRefetch,
   };
 
   const verifyToken = async () => {

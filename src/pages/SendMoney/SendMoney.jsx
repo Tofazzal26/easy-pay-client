@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "./../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
+import { useLocation, useNavigate } from "react-router";
 const SendMoney = () => {
   const {
     register,
@@ -10,7 +12,11 @@ const SendMoney = () => {
     formState: { errors },
   } = useForm();
 
-  const { allUserData } = useContext(AuthContext);
+  const { allUserData, headerRefetch } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
   const {
     balance,
@@ -25,7 +31,7 @@ const SendMoney = () => {
     notification,
   } = allUserData || {};
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { pin, sendNumber, amount } = data;
     let tranFee = 0;
     if (amount >= 100) {
@@ -37,6 +43,7 @@ const SendMoney = () => {
     if (parseFloat(balance) < parseFloat(amount) + parseFloat(tranFee)) {
       return toast.error("You have no enough money and fee");
     }
+
     const sendMoneyTransaction = {
       transactionId:
         "TXN-" + Date.now() + "-" + Math.floor(1000 + Math.random() * 9000),
@@ -47,8 +54,20 @@ const SendMoney = () => {
       fee: tranFee,
       timestamp: Date.now() + 6 * 60 * 60 * 1000,
       status: "Success",
+      pin,
     };
-    console.log(sendMoneyTransaction);
+    try {
+      const resp = await axiosPublic.post("/sendMoney", sendMoneyTransaction);
+      headerRefetch();
+      if (!resp?.data?.success) {
+        return toast.error(resp?.data?.message);
+      }
+      toast.success(resp?.data?.message);
+      navigate(from);
+      console.log(resp);
+    } catch (error) {
+      console.log(error, "front-end error");
+    }
   };
   return (
     <div className="container mx-auto">
