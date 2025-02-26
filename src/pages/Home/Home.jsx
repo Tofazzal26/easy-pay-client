@@ -1,4 +1,5 @@
 import { Send, Wallet, Download, List, PlusCircle } from "lucide-react";
+import { NavLink } from "react-router";
 
 const Home = () => {
   return (
@@ -8,24 +9,31 @@ const Home = () => {
           Service
         </h2>
         <div className="grid lg:grid-cols-4 grid-cols-2 gap-4">
-          <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
-            <div className="flex justify-center items-center flex-col py-5 lg:py-10">
-              <Send size={40} />
-              <h2 className="text-lg lg:text-2xl mt-2">Send Money</h2>
+          <NavLink to="/sendMoney">
+            <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
+              <div className="flex justify-center items-center flex-col py-5 lg:py-10">
+                <Send size={40} />
+                <h2 className="text-lg lg:text-2xl mt-2">Send Money</h2>
+              </div>
             </div>
-          </div>
-          <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
-            <div className="flex justify-center items-center flex-col py-5 lg:py-10">
-              <Wallet size={40} />
-              <h2 className="text-lg lg:text-2xl mt-2">Cash In</h2>
+          </NavLink>
+          <NavLink to="/cashIn">
+            <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
+              <div className="flex justify-center items-center flex-col py-5 lg:py-10">
+                <Wallet size={40} />
+                <h2 className="text-lg lg:text-2xl mt-2">Cash In</h2>
+              </div>
             </div>
-          </div>
-          <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
-            <div className="flex justify-center items-center flex-col py-5 lg:py-10">
-              <Download size={40} />
-              <h2 className="text-lg lg:text-2xl mt-2">Cash Out</h2>
+          </NavLink>
+          <NavLink to="cashOut">
+            <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
+              <div className="flex justify-center items-center flex-col py-5 lg:py-10">
+                <Download size={40} />
+                <h2 className="text-lg lg:text-2xl mt-2">Cash Out</h2>
+              </div>
             </div>
-          </div>
+          </NavLink>
+
           <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
             <div className="flex justify-center items-center flex-col py-5 lg:py-10">
               <PlusCircle size={40} />

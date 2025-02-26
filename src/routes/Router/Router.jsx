@@ -9,6 +9,7 @@ import PrivateRoute from "../../pages/PrivateRoute/PrivateRoute";
 import Dashboard from "../../pages/Dashboard/Dashboard";
 import AdminPrivateRoute from "../../pages/AdminPrivateRoute/AdminPrivateRoute";
 import SendMoney from "../../pages/SendMoney/SendMoney";
+import CashOut from "../../pages/CashOut/CashOut";
 
 const Router = createBrowserRouter([
   {
@@ -45,6 +46,14 @@ const Router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <SendMoney />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/cashOut",
+        element: (
+          <PrivateRoute>
+            <CashOut />
           </PrivateRoute>
         ),
       },

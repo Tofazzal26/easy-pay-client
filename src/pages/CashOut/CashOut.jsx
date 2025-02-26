@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "./../../AuthProvider/AuthProvider";
-import toast from "react-hot-toast";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
 import { useLocation, useNavigate } from "react-router";
-import { Loader } from "lucide-react";
-const SendMoney = () => {
+import toast from "react-hot-toast";
+
+const CashOut = () => {
   const {
     register,
     handleSubmit,
@@ -19,7 +19,6 @@ const SendMoney = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
-
   const {
     balance,
     email,
@@ -35,49 +34,45 @@ const SendMoney = () => {
 
   const onSubmit = async (data) => {
     const { pin, sendNumber, amount } = data;
-    let tranFee = 0;
-    if (amount >= 100) {
-      tranFee = 5;
-    }
+    const parseAmount = parseFloat(amount);
+    const tranFee = (parseAmount * 1.5) / 100;
+
     if (parseFloat(amount) < 50) {
       return toast.error("Must send more than 50 taka");
     }
     if (parseFloat(balance) < parseFloat(amount) + parseFloat(tranFee)) {
       return toast.error("You have no enough money and fee");
     }
-
     const sendMoneyTransaction = {
       transactionId:
         "TXN-" + Date.now() + "-" + Math.floor(1000 + Math.random() * 9000),
-      type: "SendMoney",
+      type: "CashOut",
       amountSend: amount,
       senderId: number,
       receiverId: sendNumber,
-      fee: tranFee,
       timestamp: Date.now() + 6 * 60 * 60 * 1000,
       status: "Success",
       pin,
+      fee: tranFee,
     };
-    setLoading(true);
+    console.log(sendMoneyTransaction);
     try {
-      const resp = await axiosPublic.post("/sendMoney", sendMoneyTransaction);
+      const resp = await axiosPublic.post("/cashOut", sendMoneyTransaction);
       headerRefetch();
       if (!resp?.data?.success) {
         return toast.error(resp?.data?.message);
       }
       toast.success(resp?.data?.message);
       navigate(from);
-      console.log(resp);
     } catch (error) {
       console.log(error, "front-end error");
-    } finally {
-      setLoading(false);
     }
   };
+
   return (
     <div className="container mx-auto">
       <div>
-        <h2 className="text-center text-2xl my-5 lg:my-10">Send Money</h2>
+        <h2 className="text-center text-2xl my-5 lg:my-10">Cash Out</h2>
         <div className="flex justify-center items-center">
           <form onSubmit={handleSubmit(onSubmit)} className="font-semibold">
             <div>
@@ -95,7 +90,7 @@ const SendMoney = () => {
               )}
             </div>
             <div>
-              <label htmlFor="name">Amount</label>
+              <label htmlFor="amount">Amount</label>
               <br />
               <input
                 type="number"
@@ -109,7 +104,7 @@ const SendMoney = () => {
               )}
             </div>
             <div>
-              <label htmlFor="name">Pin</label>
+              <label htmlFor="number">Pin</label>
               <br />
               <input
                 type="number"
@@ -131,7 +126,7 @@ const SendMoney = () => {
               {loading ? (
                 <Loader className="animate-spin mx-auto" size={25} />
               ) : (
-                "Send Money"
+                "Cash Out"
               )}
             </button>
           </form>
@@ -141,4 +136,4 @@ const SendMoney = () => {
   );
 };
 
-export default SendMoney;
+export default CashOut;
