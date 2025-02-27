@@ -70,17 +70,17 @@ const Home = () => {
         </div>
         <div className="mt-[50px] lg:mt-[150px]">
           <h2 className="text-lg font-semibold text-gray-600">Others</h2>
-        </div>
-        <NavLink to="/transaction">
           <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 lg:mt-4 mt-2">
-            <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
-              <div className="flex justify-center items-center flex-col py-5 lg:py-10">
-                <List size={40} />
-                <h2 className="text-lg lg:text-2xl mt-2">Transaction</h2>
+            <NavLink to="/transaction">
+              <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
+                <div className="flex justify-center items-center flex-col py-5 lg:py-10">
+                  <List size={40} />
+                  <h2 className="text-lg lg:text-2xl mt-2">Transaction</h2>
+                </div>
               </div>
-            </div>
+            </NavLink>
           </div>
-        </NavLink>
+        </div>
       </div>
     </div>
   );
