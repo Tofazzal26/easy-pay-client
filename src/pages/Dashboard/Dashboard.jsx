@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Users, CreditCard, Briefcase } from "lucide-react";
 import UserContent from "./UserContent/UserContent";
 import AgentContent from "./AgentContent/AgentContent";
+import TransactionContent from "./TransactionContent/TransactionContent";
 const menuItems = [
   { name: "All Users", icon: <Users size={20} />, key: "Users" },
   { name: "Agents Request", icon: <Briefcase size={20} />, key: "Agents" },
@@ -32,7 +33,7 @@ const Dashboard = () => {
         <h1 className="text-2xl font-semibold">{activeTab}</h1>
         <div className="mt-4 p-4 rounded-lg shadow-md">
           {activeTab === "Users" && <UserContent />}
-          {activeTab === "Transactions" && <p>Transactions Content</p>}
+          {activeTab === "Transactions" && <TransactionContent />}
           {activeTab === "Agents" && <AgentContent />}
         </div>
       </div>
