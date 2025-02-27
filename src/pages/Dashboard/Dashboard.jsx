@@ -3,12 +3,23 @@ import { Users, CreditCard, Briefcase } from "lucide-react";
 import UserContent from "./UserContent/UserContent";
 import AgentContent from "./AgentContent/AgentContent";
 import TransactionContent from "./TransactionContent/TransactionContent";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
 const menuItems = [
   { name: "All Users", icon: <Users size={20} />, key: "Users" },
   { name: "Agents Request", icon: <Briefcase size={20} />, key: "Agents" },
   { name: "Transactions", icon: <CreditCard size={20} />, key: "Transactions" },
 ];
 const Dashboard = () => {
+  const axiosPublic = useAxiosPublic();
+  const { data: TotalBalance = [] } = useQuery({
+    queryKey: ["TotalBalance"],
+    queryFn: async () => {
+      const resp = await axiosPublic.get("totalBalance");
+      return resp.data;
+    },
+  });
+
   const [activeTab, setActiveTab] = useState("Users");
   return (
     <div className="flex lg:flex-row flex-col h-screen">
@@ -30,7 +41,12 @@ const Dashboard = () => {
         </nav>
       </div>
       <div className="flex-1 p-6">
-        <h1 className="text-2xl font-semibold">{activeTab}</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-semibold">{activeTab}</h1>
+          <h2 className="text-xl font-semibold">
+            Total System Balance: {TotalBalance.totalBalance}tk
+          </h2>
+        </div>
         <div className="mt-4 p-4 rounded-lg shadow-md">
           {activeTab === "Users" && <UserContent />}
           {activeTab === "Transactions" && <TransactionContent />}

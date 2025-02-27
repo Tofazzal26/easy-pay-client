@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const UserProfile = () => {
   const [edite, setEdite] = useState(false);
   const [pin, setPin] = useState(false);
+  const [newPin, setNewPin] = useState("");
   const { allUserData } = useContext(AuthContext);
 
   const {
@@ -16,6 +18,7 @@ const UserProfile = () => {
     number,
     role,
     transaction,
+    _id,
   } = allUserData || {};
 
   const handleEdit = () => {
@@ -29,6 +32,18 @@ const UserProfile = () => {
       setEdite(false);
     }
     setPin(!pin);
+  };
+
+  const handlePinChange = (event) => {
+    event.preventDefault();
+    const pin = event.target.pin.value;
+    if (pin.length < 5) {
+      return toast.error("PIN number must be 5 digits");
+    }
+    try {
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -77,46 +92,45 @@ const UserProfile = () => {
           }`}
         >
           <h2 className="text-lg font-semibold text-center">Edit Profile</h2>
-          <form>
-            <fieldset className="w-full space-y-1 dark:text-gray-800">
-              <label htmlFor="files" className="block text-sm font-medium">
-                Choose Photo
-              </label>
-              <div className="flex">
-                <input
-                  type="file"
-                  id="files"
-                  className="px-8 py-8 border-2 border-dashed rounded-md dark:border-gray-300 dark:text-gray-600 dark:bg-gray-50 font-semibold w-full mb-4"
-                />
-              </div>
-            </fieldset>
-            <div>
-              <label htmlFor="name">Name</label>
-              <br />
+
+          <fieldset className="w-full space-y-1 dark:text-gray-800">
+            <label htmlFor="files" className="block text-sm font-medium">
+              Choose Photo
+            </label>
+            <div className="flex">
               <input
-                type="text"
-                name="name"
-                placeholder="Name here"
-                className="outline-none border-[1px] border-gray-300 rounded-md w-full px-4 py-2 mb-4 mt-1"
+                type="file"
+                id="files"
+                className="px-8 py-8 border-2 border-dashed rounded-md dark:border-gray-300 dark:text-gray-600 dark:bg-gray-50 font-semibold w-full mb-4"
               />
             </div>
-            <div>
-              <label htmlFor="name">Email</label>
-              <br />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email here"
-                className="outline-none border-[1px] border-gray-300 rounded-md w-full px-4 py-2 mt-1"
-              />
-            </div>
-            <button
-              className="bg-[#ef4323] w-full text-white py-2 font-semibold mt-4 cursor-pointer rounded-md
+          </fieldset>
+          <div>
+            <label htmlFor="name">Name</label>
+            <br />
+            <input
+              type="text"
+              name="name"
+              placeholder="Name here"
+              className="outline-none border-[1px] border-gray-300 rounded-md w-full px-4 py-2 mb-4 mt-1"
+            />
+          </div>
+          <div>
+            <label htmlFor="name">Email</label>
+            <br />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email here"
+              className="outline-none border-[1px] border-gray-300 rounded-md w-full px-4 py-2 mt-1"
+            />
+          </div>
+          <button
+            className="bg-[#ef4323] w-full text-white py-2 font-semibold mt-4 cursor-pointer rounded-md
             "
-            >
-              Change
-            </button>
-          </form>
+          >
+            Change
+          </button>
         </div>
         <div
           className={`shadow-lg bg-white p-5 lg:p-10 rounded-lg mt-3 lg:mt-6 ${
@@ -124,7 +138,8 @@ const UserProfile = () => {
           }`}
         >
           <h2 className="text-lg font-semibold text-center">Change Pin</h2>
-          <form>
+
+          <form onSubmit={handlePinChange}>
             <div>
               <label htmlFor="name">New Pin</label>
               <br />
