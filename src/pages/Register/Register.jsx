@@ -78,7 +78,7 @@ const Register = () => {
         localStorage.removeItem("token");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setLoading(false);
     }

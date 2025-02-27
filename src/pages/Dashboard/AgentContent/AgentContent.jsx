@@ -36,7 +36,7 @@ const AgentContent = () => {
         }
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -65,7 +65,7 @@ const AgentContent = () => {
         }
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

@@ -54,19 +54,6 @@ const Home = () => {
               </div>
             </div>
           </NavLink>
-          <NavLink
-            to="/addMoney"
-            className={
-              role === "agent" ? "block" : role === "admin" ? "block" : "hidden"
-            }
-          >
-            <div className="bg-[#ef4323] rounded-2xl text-white cursor-pointer">
-              <div className="flex justify-center items-center flex-col py-5 lg:py-10">
-                <PlusCircle size={40} />
-                <h2 className="text-lg lg:text-2xl mt-2">Add Money</h2>
-              </div>
-            </div>
-          </NavLink>
         </div>
         <div className="mt-[50px] lg:mt-[150px]">
           <h2 className="text-lg font-semibold text-gray-600">Others</h2>

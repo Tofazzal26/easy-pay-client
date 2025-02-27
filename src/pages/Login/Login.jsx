@@ -51,7 +51,7 @@ const Login = () => {
         localStorage.removeItem("token");
       }
     } catch (error) {
-      console.log(error, "front-end error");
+      // console.log(error, "front-end error");
     } finally {
       setLoading(false);
     }

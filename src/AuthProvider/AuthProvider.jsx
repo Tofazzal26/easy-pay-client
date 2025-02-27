@@ -53,10 +53,10 @@ const AuthProvider = ({ children }) => {
         setUser(response.data.user);
       }
     } catch (error) {
-      console.error(
-        "Error during token verification:",
-        error.response?.data || error.message
-      );
+      // console.error(
+      //   "Error during token verification:",
+      //   error.response?.data || error.message
+      // );
     }
   };
 

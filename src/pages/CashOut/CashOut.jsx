@@ -67,7 +67,7 @@ const CashOut = () => {
       toast.success(resp?.data?.message);
       navigate(from);
     } catch (error) {
-      console.log(error, "front-end error");
+      // console.log(error, "front-end error");
     } finally {
       setLoading(false);
     }
